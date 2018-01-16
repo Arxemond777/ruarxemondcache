@@ -31,7 +31,7 @@ public final class ExceptionHandler {
             ? (System.getProperty("os.name").toLowerCase().startsWith("windows") // if exception.handler.path the default
                     ?
                         "C:" + FS + "Users" + FS + System.getProperty("user.name") + FS
-                        + "AppData" + FS + "Local" + FS + "Temp" + FS + "ruarxemondcache" + FS
+                        + "AppData" + FS + "Local" + FS + "Temp" + FS + "ruarxemondcache" + FS // TODO ruarxemondcache in enum
                     : FS  + "tmp" + FS) + "ruarxemondcache" + FS
 
             : System.getProperty("exception.handler.path");

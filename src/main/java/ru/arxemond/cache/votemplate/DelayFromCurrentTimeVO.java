@@ -20,10 +20,10 @@ public class DelayFromCurrentTimeVO implements IDelayVO {
 
     @Override
     public void setExpire(LocalDateTime expire) {
-        lock.lock(); // think more about this case
+        //lock.lock(); // think more about this case
         if (Objects.isNull(this.expire)) {
             UPDATE_EXPIRE.compareAndSet(this, this.expire, expire);
         }
-        lock.unlock();
+        //lock.unlock();
     }
 }
