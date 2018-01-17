@@ -1,11 +1,14 @@
 package ru.arxemond.cache.service;
 
-import ru.arxemond.cache.handler.exception.ExceptionHandler;
+import ru.arxemond.cache.handler.expire.ExpireHandler;
+import ru.arxemond.cache.util.Trio;
 
-import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
-import static ru.arxemond.cache.config.ConfigureConst.EXCEPTION_HANDLER_ENABLED;
-import static ru.arxemond.cache.config.ConfigureConst.EXCEPTION_HANDLER_PATH;
+import static ru.arxemond.cache.config.ConfigureConst.SCHEDULED_EXECUTOR_COUNT;
+import static ru.arxemond.cache.util.wrapper.Wrapper.wrapConfigConst;
 
 // -Dexception.handler.enabled=false
 
@@ -24,5 +27,10 @@ public class InitService {
                 ) {
             ExceptionHandler.getInstance();
         }*/
+        final ConcurrentHashMap<Trio<?, ?, ?>, ?> concurrentHashMap = new ConcurrentHashMap<>(1000);
+        final ScheduledExecutorService scheduledExecutorService
+                = Executors.newScheduledThreadPool((int) wrapConfigConst(SCHEDULED_EXECUTOR_COUNT));
+
+        new ExpireHandler(scheduledExecutorService, concurrentHashMap);
     }
 }

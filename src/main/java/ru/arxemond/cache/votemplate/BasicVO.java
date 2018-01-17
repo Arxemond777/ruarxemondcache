@@ -39,7 +39,6 @@ public class BasicVO {
         private IDelayVO iDelayVO;
 
         public Builder(LocalDateTime localDateTime, Class<?> aClass) {
-            //Class<?> aClass1 = aClass;
             this.localDateTime = localDateTime;
             this.aClass = aClass;
         }
@@ -56,8 +55,12 @@ public class BasicVO {
             return iDelayVO;
         }
 
+        /**
+         * can be replace
+         * @param iDelayVO
+         * @return
+         */
         public Builder setiDelayVO(IDelayVO iDelayVO) {
-//            IDelayVO iDelayVO1 = iDelayVO.getClass();
             this.iDelayVO = iDelayVO;
             return this;
         }

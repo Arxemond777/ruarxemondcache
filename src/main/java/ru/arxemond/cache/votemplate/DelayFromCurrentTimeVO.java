@@ -1,29 +1,23 @@
 package ru.arxemond.cache.votemplate;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.time.ZoneId;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
-/**
- * TODO rework as write in interface
- */
 public class DelayFromCurrentTimeVO implements IDelayVO {
-    private volatile LocalDateTime expire; //TODO v
+    private volatile long expire; //TODO v
 
-    private static final AtomicReferenceFieldUpdater<DelayFromCurrentTimeVO,LocalDateTime> UPDATE_EXPIRE =
-            AtomicReferenceFieldUpdater.newUpdater(DelayFromCurrentTimeVO.class, LocalDateTime.class, "expire");
+    private static final AtomicReferenceFieldUpdater<DelayFromCurrentTimeVO, Long> UPDATE_EXPIRE =
+            AtomicReferenceFieldUpdater.newUpdater(DelayFromCurrentTimeVO.class, long.class, "expire");
 
     @Override
     public LocalDateTime getExpire() {
-        return expire;
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(this.expire), ZoneId.systemDefault());
     }
 
     @Override
     public void setExpire(LocalDateTime expire) {
-        //lock.lock(); // think more about this case
-        if (Objects.isNull(this.expire)) {
-            UPDATE_EXPIRE.compareAndSet(this, this.expire, expire);
-        }
-        //lock.unlock();
+        UPDATE_EXPIRE.compareAndSet(this, this.expire, expire.atZone(ZoneId.systemDefault()).toEpochSecond());
     }
 }
