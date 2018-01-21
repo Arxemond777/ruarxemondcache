@@ -1,13 +1,12 @@
 package ru.arxemond.cache.handler.exception;
 
-import java.io.File;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static ru.arxemond.cache.config.ConfigureConst.FS;
+import static java.io.File.separator;
 
 /**
  * This thread run daemon-thread
@@ -30,9 +29,10 @@ public final class ExceptionHandler {
             pathForLog = !"".equals(System.getProperty("exception.handler.path"))
             ? (System.getProperty("os.name").toLowerCase().startsWith("windows") // if exception.handler.path the default
                     ?
-                        "C:" + FS + "Users" + FS + System.getProperty("user.name") + FS
-                        + "AppData" + FS + "Local" + FS + "Temp" + FS + "ruarxemondcache" + FS // TODO ruarxemondcache in enum
-                    : FS  + "tmp" + FS) + "ruarxemondcache" + FS
+                        "C:" + separator + "Users" + separator + System.getProperty("user.name") + separator
+                        + "AppData" + separator + "Local" + separator + "Temp" + separator
+                        + "ruarxemondcache" + separator // TODO ruarxemondcache in enum
+                    : separator  + "tmp" + separator) + "ruarxemondcache" + separator
 
             : System.getProperty("exception.handler.path");
 
