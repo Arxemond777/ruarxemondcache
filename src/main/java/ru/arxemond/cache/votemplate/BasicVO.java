@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class BasicVO {
-    private final LocalDateTime localDateTime;
     private final Class<?> aClass;
+    private final LocalDateTime localDateTime;
     private IDelayVO iDelayVO;
 
     private BasicVO(Builder builder) {
