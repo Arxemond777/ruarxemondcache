@@ -11,9 +11,10 @@ public class Wrapper {
 
     public static Object wrapConfigConst(ConfigureConst configureConst) {
         AbstractFactory factory = FactoryProducer.getFactory(configureConst);
-        return factory.createConfigureConst(configureConst).getInt();
+//        return factory.createConfigureConst(configureConst).getInt();
 
-//        return configureConst.getPair().getValue().getClass().cast(configureConst.getPair().getValue());
+        // TODO think about realisation
+        return configureConst.getPair().getValue().getClass().cast(configureConst.getPair().getValue());
     }
 }
 

@@ -1,13 +1,10 @@
 package ru.arxemond.cache.util;
 
-import javafx.beans.NamedArg;
-import javafx.util.Pair;
-
 import java.io.Serializable;
 
 /**
  * This class analogue to the
- * @see javafx.util.Pair
+ * @see ru.arxemond.cache.util.Pair
  * but unlike the Pair it contain 3 elements
  */
 public class Trio<K,V, T> implements Serializable {
@@ -22,7 +19,7 @@ public class Trio<K,V, T> implements Serializable {
         return middle;
     }
 
-    public Trio(@NamedArg("key") K key, @NamedArg("value") V value, @NamedArg("value") T middle) {
+    public Trio(K key, V value, T middle) {
         pair = new Pair<>(key, value);
 
         this.middle = middle;
