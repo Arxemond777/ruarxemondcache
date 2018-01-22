@@ -4,22 +4,34 @@ import ru.arxemond.cache.util.Pair;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Cache {
+public enum Cache {
+    INIT;
+
     /**
      * Map<String, - key
-     *  Pair<LocalDateTime, - dateCreate
-     *      Pair<
-     *          Boolean - hasExpireTime?
-     *          LocalDateTime, - expireDate
-     *      >
-     *  >
+     * Pair<LocalDateTime, - dateCreate
+     * Pair<
+     * Boolean - hasExpireTime?
+     * LocalDateTime, - expireDate
+     * >
+     * >
      * >
      */
-    private final Map<String, Pair<LocalDateTime, Pair<Boolean, LocalDateTime>>> map;
+    private static Map<String, Pair<LocalDateTime, Pair<Boolean, LocalDateTime>>> map;
 
-    public Cache() {
-        map = new ConcurrentHashMap<>(10_000);
+    public static Map<String, Pair<LocalDateTime, Pair<Boolean, LocalDateTime>>> init() {
+        Map<String, Pair<LocalDateTime, Pair<Boolean, LocalDateTime>>> mapResult = map;
+        if (Objects.isNull(mapResult)) {
+            synchronized (Cache.class) {
+                mapResult = map;
+                if (Objects.isNull(mapResult))
+                    mapResult = map = new ConcurrentHashMap<>(10_000);
+            }
+        }
+
+        return mapResult;
     }
 }
