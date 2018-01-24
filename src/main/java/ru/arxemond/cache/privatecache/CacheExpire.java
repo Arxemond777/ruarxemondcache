@@ -2,11 +2,12 @@ package ru.arxemond.cache.privatecache;
 
 import ru.arxemond.cache.util.Pair;
 import ru.arxemond.cache.util.collection.SelfExpiringHashMap;
+import ru.arxemond.cache.util.collection.SelfExpiringMap;
 
 import java.util.Map;
 import java.util.Objects;
 
-public enum  CacheExpire implements ICache<Map<String, Pair<Object, Class<?>>>> {
+public enum  CacheExpire implements ICacheExpire<Map<String, Pair<Object, Class<?>>>> {
     INIT {
         @Override
         public Map<String, Pair<Object, Class<?>>> initial(int initialCapacity) {
@@ -31,11 +32,10 @@ public enum  CacheExpire implements ICache<Map<String, Pair<Object, Class<?>>>> 
         return map.get(name);
     }
 
+    private static SelfExpiringMap<String, Pair<Object, Class<?>>> map;
+
     @Override
-    public void setValue(String name, Object value, Class<?> typeClass) {
-        map.put(name, new Pair<>(value, typeClass));
+    public void setValue(String name, Object value, Class<?> aClass, int expiresInMillisecond) {
+        map.put(name, new Pair<>(value, aClass), expiresInMillisecond);
     }
-
-    private static Map<String, Pair<Object, Class<?>>> map;
-
 }
