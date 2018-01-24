@@ -2,6 +2,7 @@ package ru.arxemond.cache.votemplate;
 
 import java.util.Objects;
 
+@Deprecated
 public class BasicVoCache<T> {
 
     private T value;

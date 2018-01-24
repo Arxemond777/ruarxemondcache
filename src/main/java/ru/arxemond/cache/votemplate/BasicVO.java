@@ -3,6 +3,7 @@ package ru.arxemond.cache.votemplate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Deprecated
 public class BasicVO {
     private final Class<?> aClass;
     private final LocalDateTime localDateTime;

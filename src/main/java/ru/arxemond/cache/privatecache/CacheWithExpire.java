@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import com.google.common.collect.Maps;
 
+@Deprecated
 public enum CacheWithExpire implements ICache<Map<Pair<String, ?>, LocalDateTime>> {
     INIT {
         @Override
@@ -69,5 +70,14 @@ public enum CacheWithExpire implements ICache<Map<Pair<String, ?>, LocalDateTime
 
             }
         }
+    }
+
+    @Override
+    public void setValue(String name, Object value, Class<?> typeClass) {
+    }
+
+    @Override
+    public Pair<Object, Class<?>> getValue(String s) {
+        return null;
     }
 }

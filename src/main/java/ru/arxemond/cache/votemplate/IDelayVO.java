@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+@Deprecated
 public interface IDelayVO {
 
     // TODO LocalDateTime - convert in long

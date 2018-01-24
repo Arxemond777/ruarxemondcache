@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
+@Deprecated
 public class DelayFromCurrentTimeVO implements IDelayVO {
     private volatile long expire; //TODO v
 

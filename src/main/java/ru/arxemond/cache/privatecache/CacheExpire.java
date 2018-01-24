@@ -1,26 +1,29 @@
 package ru.arxemond.cache.privatecache;
 
 import ru.arxemond.cache.util.Pair;
+import ru.arxemond.cache.util.collection.SelfExpiringHashMap;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 
-public enum CacheSimple implements ICache<Map<String, Pair<Object, Class<?>>>> {
+public enum  CacheExpire implements ICache<Map<String, Pair<Object, Class<?>>>> {
     INIT {
         @Override
         public Map<String, Pair<Object, Class<?>>> initial(int initialCapacity) {
             Map<String, Pair<Object, Class<?>>> mapResult = map;
             if (Objects.isNull(mapResult)) {
-                synchronized (CacheSimple.class) {
+                synchronized (CacheExpire.class) {
                     mapResult = map;
                     if (Objects.isNull(mapResult))
-                        map = new ConcurrentHashMap<>(initialCapacity);
+                        map = new SelfExpiringHashMap<>(initialCapacity);
+
                 }
+
             }
 
             return mapResult;
         }
+
     };
 
     @Override
@@ -33,12 +36,6 @@ public enum CacheSimple implements ICache<Map<String, Pair<Object, Class<?>>>> {
         map.put(name, new Pair<>(value, typeClass));
     }
 
-    /**
-     * Map<String, - key
-     * Pair<
-     * Object, - value
-     * Class<?> - class of value
-     *     >>
-     */
     private static Map<String, Pair<Object, Class<?>>> map;
+
 }
