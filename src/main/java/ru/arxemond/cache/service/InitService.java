@@ -1,8 +1,8 @@
 package ru.arxemond.cache.service;
 
 import ru.arxemond.cache.handler.exception.ExceptionHandler;
+import ru.arxemond.cache.privatecache.CacheExpire;
 import ru.arxemond.cache.privatecache.CacheSimple;
-import ru.arxemond.cache.privatecache.CacheWithExpire;
 
 import java.util.Objects;
 
@@ -24,7 +24,8 @@ public class InitService {
          * init cache
          * Integer.parseInt() - to avoid boxing/unboxing
          */
-        CacheSimple.INIT.initial(Integer.parseInt(INSTANCE.getProperty("cache.simple")));
-        CacheWithExpire.INIT.initial(Integer.parseInt(INSTANCE.getProperty("cache.with.expire")));
+        CacheSimple.INIT.initial();
+
+        CacheExpire.INIT.initial();
     }
 }
